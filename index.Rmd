@@ -28,20 +28,33 @@ cat(
 ```
 
 
+Some intro notes on matrix viz and its importance.
+Etc, etc.
 
+E.g. "quantum lorem ipsum" (using <https://transformer.huggingface.co/doc/gpt2-large>):
 
+**Quantum mechanics is** a powerful, revolutionary system of ideas that are fundamentally changing our view of the universe and the universe itself. It is, to use a common term, the "singularity of science " and it has a profound impact on all aspects of our lives and on everything we do." (4) The problem with the Sing ularity is that it creates uncertainty , but uncertainty is unavoidable because the system we have set up to be able to predict what will happen in the future and the system we have set up to measure the past, does not do this well.
 
+## BraKetVue library
 
 <div id='matrix1'></div>
 
-nnn
+Here more notes.
+And even more.
 
 <div id='matrix2'></div>
 
+## Equations in general
+
+Not only we can have Vue components, but also regular equations in $\LaTeX$, e.g.:
+
+$$\left| \psi \right\rangle = \frac{\left| 0 \right\rangle - \left| 1 \right\rangle}{\sqrt{2}}$$
 
 ## Notes
 
 This note is created with Learn more about using [Distill for R Markdown](https://rstudio.github.io/distill).
+
+As of now, source code is at [github.com/stared/bra-ket-vue-art](https://github.com/stared/bra-ket-vue-art).
 
 
 ```{js, results='asis', echo=FALSE, message=FALSE}
