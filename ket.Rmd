@@ -1,0 +1,28 @@
+---
+title: "Ket vis"
+description: |
+  Just testing.
+author:
+  - name: Piotr Migdał 
+    url: https://p.migdal.pl
+    affiliation: Quantum Flytrap
+    affiliation_url: https://quantumgame.io
+  - name: Klem Jankiewicz
+    url: http://jankiewiczstudio.com/
+    affiliation: Quantum Flytrap
+    affiliation_url: https://quantumgame.io
+date: "`r Sys.Date()`"
+output: distill::distill_article
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+Nothing there yet. To be done later.
+Just testing multiple files.
+
+
+
+
+

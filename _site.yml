@@ -1,0 +1,12 @@
+name: "BraKetVue"
+title: "BraKetVue"
+description: |
+  Quantum state and operator visualizations
+output_dir: "_site"
+navbar:
+  right:
+    - text: "Matrix visualization"
+      href: index.html
+    - text: "Ket vis"
+      href: ket.html
+output: distill::distill_article

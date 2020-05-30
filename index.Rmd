@@ -26,15 +26,23 @@ cat(
   "<script src='https://unpkg.com/bra-ket-vue'></script>"
 )
 ```
-Distill is a publication format for scientific and technical writing, native to the web. 
 
-Learn more about using Distill for R Markdown at <https://rstudio.github.io/distill>.
+
+
+
+
 
 <div id='matrix1'></div>
 
 nnn
 
 <div id='matrix2'></div>
+
+
+## Notes
+
+This note is created with Learn more about using [Distill for R Markdown](https://rstudio.github.io/distill).
+
 
 ```{js, results='asis', echo=FALSE, message=FALSE}
 const { Elements, Operator, Dimension, Cx } = QuantumTensors;
