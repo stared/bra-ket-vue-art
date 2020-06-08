@@ -56,6 +56,20 @@ This note is created with Learn more about using [Distill for R Markdown](https:
 
 As of now, source code is at [github.com/stared/bra-ket-vue-art](https://github.com/stared/bra-ket-vue-art).
 
+We should ref or consider:
+
+- [Clustergrammer in Jupyter Notebook](https://clustergrammer.readthedocs.io/clustergrammer_widget.html) (see potentially [ipywidgets.readthedocs.io](https://ipywidgets.readthedocs.io/en/stable/examples/Widget%20Custom.html))
+- [htmlwidgets for R](http://www.htmlwidgets.org/)
+- (found in <https://bost.ocks.org/mike/algorithms/>)
+
+> This is not a convential rainbow color scale, which is nominally considered harmful, but a cubehelix rainbow with improved perceptual properties.
+
+- [How The Rainbow Color Map Misleads - Robert Kosara](https://eagereyes.org/basics/rainbow-color-map)
+- [A Less-Angry Rainbow - Mike Bostock](https://bl.ocks.org/mbostock/310c99e53880faec2434)
+- [chapter 3. Visualization of quantum sequences of Piotr Migdał PhD Thesis](https://arxiv.org/abs/1412.6796)
+- [QuTiP example: Qubism visualizations - Piotr Migdał](https://nbviewer.jupyter.org/github/qutip/qutip-notebooks/blob/master/examples/qubism-and-schmidt-plots.ipynb)
+- [Visualizing complex-valued functions with Matplotlib and Mayavi - Domain coloring method](https://nbviewer.jupyter.org/github/empet/Math/blob/master/DomainColoring.ipynb)
+
 
 ```{js, results='asis', echo=FALSE, message=FALSE}
 const { Elements, Operator, Dimension, Cx } = QuantumTensors;
@@ -81,7 +95,9 @@ new Vue({
 		}
   }
 })
+```
 
+```{js, results='asis', echo=FALSE, message=FALSE}
 new Vue({
   el: "#matrix2",
   template: "<matrix-viewer :operator-raw='operator2' :dark-mode='false' />",
@@ -97,6 +113,5 @@ new Vue({
   }
 })
 ```
-
 
 
