@@ -29,22 +29,33 @@ cat(
 
 
 Logic operations are basic building block of any more complicated computing.
+THey are being used as base CPU instructions, and in high-level computing.
 
 
 ## Simple operations
 
+We start with  0 and 1.
+
 ### NOT
 
+The simplest operation is negation.
+
 $$ \neg a $$
+It takes one bit, and swaps it.
+
+$$0 \mapsto 1 \hspace{1cm} 1 \mapsto 0$$
+Or we can write the same thing using a matrix:
 
 <div id='op-not'></div>
 
-
+Note that in this matrix all values are either 1 or 0. 
 
 
 ### AND
 
 $$ a \wedge b $$
+
+$$00 \mapsto 0 \hspace{1cm} 01 \mapsto 0 \hspace{1cm} 10 \mapsto 0 \hspace{1cm} 11 \mapsto 1$$
 
 <div id='op-and'></div>
 
@@ -52,17 +63,44 @@ $$ a \wedge b $$
 
 $$ a \vee b $$
 
+$$00 \mapsto 0 \hspace{1cm} 01 \mapsto 1 \hspace{1cm} 10 \mapsto 1 \hspace{1cm} 11 \mapsto 1$$
+
+<div id='op-or'></div>
+
 ### XOR
+
+$$a \oplus b $$
+
+
+$$00 \mapsto 0 \hspace{1cm} 01 \mapsto 1 \hspace{1cm} 10 \mapsto 1 \hspace{1cm} 11 \mapsto 0$$
+
+<div id='op-xor'></div>
+
 
 ### NAND
 
+$$00 \mapsto 1 \hspace{1cm} 01 \mapsto 1 \hspace{1cm} 10 \mapsto 1 \hspace{1cm} 0 \mapsto 0$$
 
+<div id='op-nand'></div>
 
-## Equations in general
+### COPY
 
-Not only we can have Vue components, but also regular equations in $\LaTeX$, e.g.:
+$$0 \mapsto 00 \hspace{1cm} 1 \mapsto 11$$
 
-$$\left| \psi \right\rangle = \frac{\left| 0 \right\rangle - \left| 1 \right\rangle}{\sqrt{2}}$$
+<div id='op-copy'></div>
+
+### FIRST
+
+$$00 \mapsto 0 \hspace{1cm} 01 \mapsto 0 \hspace{1cm} 10 \mapsto 1 \hspace{1cm} 1 \mapsto 0$$
+
+<div id='op-first'></div>
+
+### SECOND
+
+$$00 \mapsto 0 \hspace{1cm} 01 \mapsto 1 \hspace{1cm} 10 \mapsto 0 \hspace{1cm} 1 \mapsto 0$$
+
+<div id='op-second'></div>
+
 
 ## Reversibility
 
@@ -99,20 +137,155 @@ new Vue({
 ```
 
 ```{js, results='asis', echo=FALSE, message=FALSE}
-const opAnd = Elements.beamSplitter(45);
-
 new Vue({
   el: "#op-and",
-  template: "<matrix-viewer :operator-raw='opAnd' :dark-mode='false' />",
+  template: "<matrix-viewer :operator-raw='operator' :dark-mode='false' />",
   components: {
     MatrixViewer
   },
   data() {
   	return {
-      opAnd
+      operator: Operator.fromSparseCoordNames([
+          ['0', '00', Cx(1)],
+          ['0', '01', Cx(1)],
+          ['0', '10', Cx(1)],
+          ['1', '11', Cx(1)],
+        ],
+        [Dimension.position(2, 'bit')],
+        [Dimension.position(2, 'bit'), Dimension.position(2, 'bit')])
 		}
   }
 })
 ```
 
 
+```{js, results='asis', echo=FALSE, message=FALSE}
+new Vue({
+  el: "#op-or",
+  template: "<matrix-viewer :operator-raw='operator' :dark-mode='false' />",
+  components: {
+    MatrixViewer
+  },
+  data() {
+  	return {
+      operator: Operator.fromSparseCoordNames([
+          ['0', '00', Cx(1)],
+          ['1', '01', Cx(1)],
+          ['1', '10', Cx(1)],
+          ['1', '11', Cx(1)],
+        ],
+        [Dimension.position(2, 'bit')],
+        [Dimension.position(2, 'bit'), Dimension.position(2, 'bit')])
+		}
+  }
+})
+```
+
+
+```{js, results='asis', echo=FALSE, message=FALSE}
+new Vue({
+  el: "#op-xor",
+  template: "<matrix-viewer :operator-raw='operator' :dark-mode='false' />",
+  components: {
+    MatrixViewer
+  },
+  data() {
+  	return {
+      operator: Operator.fromSparseCoordNames([
+          ['0', '00', Cx(1)],
+          ['1', '01', Cx(1)],
+          ['1', '10', Cx(1)],
+          ['0', '11', Cx(1)],
+        ],
+        [Dimension.position(2, 'bit')],
+        [Dimension.position(2, 'bit'), Dimension.position(2, 'bit')])
+		}
+  }
+})
+```
+
+```{js, results='asis', echo=FALSE, message=FALSE}
+new Vue({
+  el: "#op-nand",
+  template: "<matrix-viewer :operator-raw='operator' :dark-mode='false' />",
+  components: {
+    MatrixViewer
+  },
+  data() {
+  	return {
+      operator: Operator.fromSparseCoordNames([
+          ['1', '00', Cx(1)],
+          ['1', '01', Cx(1)],
+          ['1', '10', Cx(1)],
+          ['0', '11', Cx(1)],
+        ],
+        [Dimension.position(2, 'bit')],
+        [Dimension.position(2, 'bit'), Dimension.position(2, 'bit')])
+		}
+  }
+})
+```
+
+```{js, results='asis', echo=FALSE, message=FALSE}
+new Vue({
+  el: "#op-copy",
+  template: "<matrix-viewer :operator-raw='operator' :dark-mode='false' />",
+  components: {
+    MatrixViewer
+  },
+  data() {
+  	return {
+      operator: Operator.fromSparseCoordNames([
+          ['00', '0', Cx(1)],
+          ['11', '1', Cx(1)],
+        ],
+        [Dimension.position(2, 'bit'), Dimension.position(2, 'bit')],
+        [Dimension.position(2, 'bit')])
+		}
+  }
+})
+```
+
+```{js, results='asis', echo=FALSE, message=FALSE}
+new Vue({
+  el: "#op-first",
+  template: "<matrix-viewer :operator-raw='operator' :dark-mode='false' />",
+  components: {
+    MatrixViewer
+  },
+  data() {
+  	return {
+      operator: Operator.fromSparseCoordNames([
+          ['0', '00', Cx(1)],
+          ['0', '01', Cx(1)],
+          ['1', '10', Cx(1)],
+          ['1', '11', Cx(1)],
+        ],
+        [Dimension.position(2, 'bit')],
+        [Dimension.position(2, 'bit'), Dimension.position(2, 'bit')])
+		}
+  }
+})
+```
+
+```{js, results='asis', echo=FALSE, message=FALSE}
+new Vue({
+  el: "#op-second",
+  template: "<matrix-viewer :operator-raw='operator' :dark-mode='false' />",
+  components: {
+    MatrixViewer
+  },
+  data() {
+  	return {
+      operator: Operator.fromSparseCoordNames([
+          ['0', '00', Cx(1)],
+          ['1', '01', Cx(1)],
+          ['0', '10', Cx(1)],
+          ['1', '11', Cx(1)],
+        ],
+        [Dimension.position(2, 'bit')],
+        [Dimension.position(2, 'bit'), Dimension.position(2, 'bit')])
+		}
+  }
+})
+```
