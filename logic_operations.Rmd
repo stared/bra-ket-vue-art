@@ -1,0 +1,118 @@
+---
+title: "Logic operations, truth tables and matrices"
+description: |
+  Classical logics visualized with BraKetVue
+author:
+  - name: Piotr Migdał 
+    url: https://p.migdal.pl
+    affiliation: Quantum Flytrap
+    affiliation_url: https://quantumgame.io
+  - name: Klem Jankiewicz
+    url: http://jankiewiczstudio.com/
+    affiliation: Quantum Flytrap
+    affiliation_url: https://quantumgame.io
+date: "`r Sys.Date()`"
+output: distill::distill_article
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r, results='asis', echo=FALSE, message=FALSE}
+cat(
+  "<script src='https://cdn.jsdelivr.net/npm/vue'></script>",
+  "<script src='https://unpkg.com/quantum-tensors'></script>",
+  "<script src='https://unpkg.com/bra-ket-vue'></script>"
+)
+```
+
+
+Logic operations are basic building block of any more complicated computing.
+
+
+## Simple operations
+
+### NOT
+
+$$ \neg a $$
+
+<div id='op-not'></div>
+
+
+
+
+### AND
+
+$$ a \wedge b $$
+
+<div id='op-and'></div>
+
+### OR
+
+$$ a \vee b $$
+
+### XOR
+
+### NAND
+
+
+
+## Equations in general
+
+Not only we can have Vue components, but also regular equations in $\LaTeX$, e.g.:
+
+$$\left| \psi \right\rangle = \frac{\left| 0 \right\rangle - \left| 1 \right\rangle}{\sqrt{2}}$$
+
+## Reversibility
+
+## Notes
+
+This note is created with Learn more about using [Distill for R Markdown](https://rstudio.github.io/distill).
+
+As of now, source code is at [github.com/stared/bra-ket-vue-art](https://github.com/stared/bra-ket-vue-art).
+
+This particualr post inspired by [Kronecker Product In Circuits by Lei Mao ](https://leimao.github.io/blog/Kronecker-Product-In-Circuits/) and [Quantum Entanglement and Superdense Coding by Victory Omole](https://vtomole.com/blog/2018/03/03/sd).
+
+
+```{js, results='asis', echo=FALSE, message=FALSE}
+const { Elements, Operator, Dimension, Cx } = QuantumTensors;
+const { ComplexLegend, MatrixViewer } = BraKetVue;
+
+const opNot = Operator.fromSparseCoordNames([
+  ['1', '0', Cx(1)],
+  ['0', '1', Cx(1)],
+], [Dimension.position(2, 'bit')]);
+
+new Vue({
+  el: "#op-not",
+  template: "<matrix-viewer :operator-raw='opNot' :dark-mode='false' />",
+  components: {
+    MatrixViewer
+  },
+  data() {
+  	return {
+    	opNot
+		}
+  }
+})
+```
+
+```{js, results='asis', echo=FALSE, message=FALSE}
+const opAnd = Elements.beamSplitter(45);
+
+new Vue({
+  el: "#op-and",
+  template: "<matrix-viewer :operator-raw='opAnd' :dark-mode='false' />",
+  components: {
+    MatrixViewer
+  },
+  data() {
+  	return {
+      opAnd
+		}
+  }
+})
+```
+
+
