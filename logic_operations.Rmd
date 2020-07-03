@@ -28,36 +28,45 @@ cat(
 ```
 
 
-> Truth tables, reversibility and the gate (pun totally intended) to quantum computing.
+Truth tables, reversibility and a gate (pun totally intended) to quantum computing.
 
 > I've seen things you wouldn't believe. CNOT glitter near the Toffoli gate.
 
 Logic operations are basic building block of any more complicated computing.
-They are being used as base CPU instructions, and in high-level computing.
+They are being used as base CPU instructions, and in high-level programming language.
+
+We will use matrix notation for these logical operations - partly to show [truth tables](https://en.wikipedia.org/wiki/Truth_table) in a nice and interactive way, and partly to relate it to physics (reversible computation and quantum computing).
 
 
 ## Simple operations
 
-We start with  0 and 1.
+We start with 0 (for false) and 1 (for true).
+
 
 ### NOT
 
-The simplest operation is negation.
+The simplest operation is negation. Depending on a language, we write it differently: 
 
-$$ \neg a $$
-It takes one bit, and swaps it.
+* $\neg a$ in mathematics
+* `not a` in Python
+* `!a` in JavaScript
+
+If we want to explicitly define, we need to define its value for each input:
 
 $$0 \mapsto 1 \hspace{1cm} 1 \mapsto 0$$
-Or we can write the same thing using a matrix:
+It reads "0 maps to 1, 1 maps to 0". 
+We can write the same thing using a matrix:
 
 <div id='op-not'></div>
 
-Note that in this matrix all values are either 1 or 0. 
+In this matrix all values are either 1 (red circles) or 0 (well, nothing).
+When you mouseover an input column, you will see the output.
 
 
 ### AND
 
-$$ a \wedge b $$
+Conjunction ($a \wedge b$  in maths, `a and b` in Python, `a && b` in JavaScript) is true if and only if both conditions are true:
+
 
 $$00 \mapsto 0 \hspace{1cm} 01 \mapsto 0 \hspace{1cm} 10 \mapsto 0 \hspace{1cm} 11 \mapsto 1$$
 
@@ -65,7 +74,8 @@ $$00 \mapsto 0 \hspace{1cm} 01 \mapsto 0 \hspace{1cm} 10 \mapsto 0 \hspace{1cm} 
 
 ### OR
 
-$$ a \vee b $$
+Alternative ($a \vee b $ in maths, `a or b` in Python, `a || b` in JavaScript) is true if at least one condition is true.
+
 
 $$00 \mapsto 0 \hspace{1cm} 01 \mapsto 1 \hspace{1cm} 10 \mapsto 1 \hspace{1cm} 11 \mapsto 1$$
 
@@ -73,7 +83,7 @@ $$00 \mapsto 0 \hspace{1cm} 01 \mapsto 1 \hspace{1cm} 10 \mapsto 1 \hspace{1cm} 
 
 ### XOR
 
-$$a \oplus b $$
+Exclusive OR ($a \oplus b$ in maths, `a ^ b` in Python and JavaScript) means *either a or b*, and is true if exactly one condition is true.
 
 
 $$00 \mapsto 0 \hspace{1cm} 01 \mapsto 1 \hspace{1cm} 10 \mapsto 1 \hspace{1cm} 11 \mapsto 0$$
@@ -82,6 +92,8 @@ $$00 \mapsto 0 \hspace{1cm} 01 \mapsto 1 \hspace{1cm} 10 \mapsto 1 \hspace{1cm} 
 
 
 ### NAND
+
+NAND stands for non-AND. We rearely use it 
 
 $$00 \mapsto 1 \hspace{1cm} 01 \mapsto 1 \hspace{1cm} 10 \mapsto 1 \hspace{1cm} 0 \mapsto 0$$
 
@@ -186,7 +198,7 @@ const opNot = Operator.fromSparseCoordNames([
 
 new Vue({
   el: "#op-not",
-  template: "<matrix-viewer :operator-raw='opNot' :dark-mode='false' />",
+  template: "<matrix-viewer :operator-raw='opNot' :dark-mode='false' :show-legend='false' />",
   components: {
     MatrixViewer
   },
