@@ -74,7 +74,7 @@ $$00 \mapsto 0 \hspace{1cm} 01 \mapsto 0 \hspace{1cm} 10 \mapsto 0 \hspace{1cm} 
 
 ### OR
 
-Alternative ($a \vee b $ in maths, `a or b` in Python, `a || b` in JavaScript) is true if at least one condition is true.
+Alternative ($a \vee b$ in maths, `a or b` in Python, `a || b` in JavaScript) is true if at least one condition is true.
 
 
 $$00 \mapsto 0 \hspace{1cm} 01 \mapsto 1 \hspace{1cm} 10 \mapsto 1 \hspace{1cm} 11 \mapsto 1$$
@@ -93,19 +93,27 @@ $$00 \mapsto 0 \hspace{1cm} 01 \mapsto 1 \hspace{1cm} 10 \mapsto 1 \hspace{1cm} 
 
 ### NAND
 
-NAND stands for non-AND. We rearely use it 
+NAND stands for non-AND, $\neg (a \wedge b)$.
 
 $$00 \mapsto 1 \hspace{1cm} 01 \mapsto 1 \hspace{1cm} 10 \mapsto 1 \hspace{1cm} 0 \mapsto 0$$
 
 <div id='op-nand'></div>
 
+We rearely use it directly (in mathematics in programming we typically combine AND and NOT). At the same time, it is [an universal logic gate](https://en.wikipedia.org/wiki/Functional_completeness), meaning that ALL other logic gates can be constructed out of it. It has a big meaning in the design of circuits. 
+
+
 ### COPY
+
+There is one catch, though: we need to be able to use one output in a few inputs.
+If we want to write everything as matrices, we need to be explicit about the copy operation:
 
 $$0 \mapsto 00 \hspace{1cm} 1 \mapsto 11$$
 
 <div id='op-copy'></div>
 
 ### FIRST
+
+If we want to be explicit about other operations, we can take the first or the second value, discarding the other.
 
 $$00 \mapsto 0 \hspace{1cm} 01 \mapsto 0 \hspace{1cm} 10 \mapsto 1 \hspace{1cm} 11 \mapsto 1$$
 
@@ -119,11 +127,15 @@ $$00 \mapsto 0 \hspace{1cm} 01 \mapsto 1 \hspace{1cm} 10 \mapsto 0 \hspace{1cm} 
 
 ### SWAP
 
+We may want to change the order of variables:
+
 $$00 \mapsto 00 \hspace{1cm} 01 \mapsto 10 \hspace{1cm} 10 \mapsto 01 \hspace{1cm} 11 \mapsto 11$$
 
 <div id='op-swap'></div>
 
 ### ERASE
+
+Or, we may want to forget:
 
 $$0 \mapsto 0 \hspace{1cm} 1 \mapsto 0$$
 
@@ -134,7 +146,7 @@ $$0 \mapsto 0 \hspace{1cm} 1 \mapsto 0$$
 
 Both `NOT` are `SWAP` are reversible - just apply them twice, and you get your original input.
 
-In general, these operations are not reversible. If we know one bit there is no way to guess two bits. For the logic gates that maintain the number of bits, bioth `NOT` are `SWAP` are reversible - just apply them twice, and you get your original input. It is not the general case though - even if we have the same number of bits, we may have lost all information - as it happends with `ERASE`.
+In general, these operations are not reversible. If we know one bit there is no way to guess two bits. For the logic gates that maintain the number of bits, both `NOT` are `SWAP` are reversible - just apply them twice, and you get your original input. It is not the general case though - even if we have the same number of bits, we may have lost all information - as it happends with `ERASE`.
 
 So, there is a different question - can we make a gate reversible by adding extra bits to its output? Let's check out! For operations `FIRST` and `SECOND` it is simple - we just add the missing bit. How about `XOR`?
 
@@ -174,7 +186,6 @@ There are much more possiblities.
 
 ## To do
 
-- more explanations for simple gates
 - interactive widget to multiply operations
 - fix original 
 
@@ -213,7 +224,7 @@ new Vue({
 ```{js, results='asis', echo=FALSE, message=FALSE}
 new Vue({
   el: "#op-and",
-  template: "<matrix-viewer :operator-raw='operator' :dark-mode='false' />",
+  template: "<matrix-viewer :operator-raw='operator' :dark-mode='false' :show-legend='false' />",
   components: {
     MatrixViewer
   },
@@ -236,7 +247,7 @@ new Vue({
 ```{js, results='asis', echo=FALSE, message=FALSE}
 new Vue({
   el: "#op-or",
-  template: "<matrix-viewer :operator-raw='operator' :dark-mode='false' />",
+  template: "<matrix-viewer :operator-raw='operator' :dark-mode='false' :show-legend='false' />",
   components: {
     MatrixViewer
   },
@@ -259,7 +270,7 @@ new Vue({
 ```{js, results='asis', echo=FALSE, message=FALSE}
 new Vue({
   el: "#op-xor",
-  template: "<matrix-viewer :operator-raw='operator' :dark-mode='false' />",
+  template: "<matrix-viewer :operator-raw='operator' :dark-mode='false' :show-legend='false' />",
   components: {
     MatrixViewer
   },
@@ -281,7 +292,7 @@ new Vue({
 ```{js, results='asis', echo=FALSE, message=FALSE}
 new Vue({
   el: "#op-nand",
-  template: "<matrix-viewer :operator-raw='operator' :dark-mode='false' />",
+  template: "<matrix-viewer :operator-raw='operator' :dark-mode='false' :show-legend='false' />",
   components: {
     MatrixViewer
   },
@@ -303,7 +314,7 @@ new Vue({
 ```{js, results='asis', echo=FALSE, message=FALSE}
 new Vue({
   el: "#op-copy",
-  template: "<matrix-viewer :operator-raw='operator' :dark-mode='false' />",
+  template: "<matrix-viewer :operator-raw='operator' :dark-mode='false' :show-legend='false' />",
   components: {
     MatrixViewer
   },
@@ -323,7 +334,7 @@ new Vue({
 ```{js, results='asis', echo=FALSE, message=FALSE}
 new Vue({
   el: "#op-first",
-  template: "<matrix-viewer :operator-raw='operator' :dark-mode='false' />",
+  template: "<matrix-viewer :operator-raw='operator' :dark-mode='false' :show-legend='false' />",
   components: {
     MatrixViewer
   },
@@ -345,7 +356,7 @@ new Vue({
 ```{js, results='asis', echo=FALSE, message=FALSE}
 new Vue({
   el: "#op-second",
-  template: "<matrix-viewer :operator-raw='operator' :dark-mode='false' />",
+  template: "<matrix-viewer :operator-raw='operator' :dark-mode='false' :show-legend='false' />",
   components: {
     MatrixViewer
   },
@@ -367,7 +378,7 @@ new Vue({
 ```{js, results='asis', echo=FALSE, message=FALSE}
 new Vue({
   el: "#op-swap",
-  template: "<matrix-viewer :operator-raw='operator' :dark-mode='false' />",
+  template: "<matrix-viewer :operator-raw='operator' :dark-mode='false' :show-legend='false' />",
   components: {
     MatrixViewer
   },
@@ -390,7 +401,7 @@ new Vue({
 ```{js, results='asis', echo=FALSE, message=FALSE}
 new Vue({
   el: "#op-erase",
-  template: "<matrix-viewer :operator-raw='operator' :dark-mode='false' />",
+  template: "<matrix-viewer :operator-raw='operator' :dark-mode='false' :show-legend='false' />",
   components: {
     MatrixViewer
   },
@@ -411,7 +422,7 @@ new Vue({
 ```{js, results='asis', echo=FALSE, message=FALSE}
 new Vue({
   el: "#op-xor-2",
-  template: "<matrix-viewer :operator-raw='operator' :dark-mode='false' />",
+  template: "<matrix-viewer :operator-raw='operator' :dark-mode='false' :show-legend='false' />",
   components: {
     MatrixViewer
   },
@@ -437,7 +448,7 @@ new Vue({
 ```{js, results='asis', echo=FALSE, message=FALSE}
 new Vue({
   el: "#op-cnot",
-  template: "<matrix-viewer :operator-raw='operator' :dark-mode='false' />",
+  template: "<matrix-viewer :operator-raw='operator' :dark-mode='false' :show-legend='false' />",
   components: {
     MatrixViewer
   },
@@ -461,7 +472,7 @@ new Vue({
 
 new Vue({
   el: "#op-and-2",
-  template: "<matrix-viewer :operator-raw='operator' :dark-mode='false' />",
+  template: "<matrix-viewer :operator-raw='operator' :dark-mode='false' :show-legend='false' />",
   components: {
     MatrixViewer
   },
@@ -497,7 +508,7 @@ const oneBitMix = Operator.fromSparseCoordNames([
 
 new Vue({
   el: "#op-and-3",
-  template: "<matrix-viewer :operator-raw='operator' :dark-mode='false' />",
+  template: "<matrix-viewer :operator-raw='operator' :dark-mode='false' :show-legend='false' />",
   components: {
     MatrixViewer
   },
@@ -525,7 +536,7 @@ new Vue({
 
 new Vue({
   el: "#op-and-3-sol",
-  template: "<matrix-viewer :operator-raw='operator' :dark-mode='false' />",
+  template: "<matrix-viewer :operator-raw='operator' :dark-mode='false' :show-legend='false' />",
   components: {
     MatrixViewer
   },
