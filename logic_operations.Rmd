@@ -142,6 +142,16 @@ $$0 \mapsto 0 \hspace{1cm} 1 \mapsto 0$$
 <div id='op-erase'></div>
 
 
+### Id
+
+And for the sake of complentess, identity, or an operation that does nothing.
+
+<div id='op-id'></div>
+
+
+## Extend
+
+
 ## Reversibility
 
 Both `NOT` are `SWAP` are reversible - just apply them twice, and you get your original input.
@@ -421,6 +431,26 @@ new Vue({
 
 ```{js, results='asis', echo=FALSE, message=FALSE}
 new Vue({
+  el: "#op-id",
+  template: "<matrix-viewer :operator-raw='operator' :dark-mode='false' :show-legend='false' />",
+  components: {
+    MatrixViewer
+  },
+  data() {
+  	return {
+      operator: Operator.fromSparseCoordNames([
+          ['0', '0', Cx(1)],
+          ['1', '1', Cx(1)],
+        ],
+        [Dimension.position(2, 'bit')],
+        [Dimension.position(2, 'bit')])
+		}
+  }
+})
+```
+
+```{js, results='asis', echo=FALSE, message=FALSE}
+new Vue({
   el: "#op-xor-2",
   template: "<matrix-viewer :operator-raw='operator' :dark-mode='false' :show-legend='false' />",
   components: {
@@ -557,4 +587,10 @@ new Vue({
 		}
   }
 })
+```
+
+```{css, echo=FALSE}
+.matrix-viewer {
+  margin: auto;
+}
 ```
