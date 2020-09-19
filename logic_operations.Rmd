@@ -21,9 +21,9 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ```{r, results='asis', echo=FALSE, message=FALSE}
 cat(
-  "<script src='https://cdn.jsdelivr.net/npm/vue'></script>",
-  "<script src='https://unpkg.com/quantum-tensors'></script>",
-  "<script src='https://unpkg.com/bra-ket-vue'></script>"
+  "<script src='https://cdn.jsdelivr.net/npm/vue@2.6.12'></script>",
+  "<script src='https://unpkg.com/quantum-tensors@0.4.10/dist/quantum-tensors.min.js'></script>",
+  "<script src='https://unpkg.com/bra-ket-vue@0.3.1/dist/bra-ket-vue.min.js'></script>"
 )
 ```
 
