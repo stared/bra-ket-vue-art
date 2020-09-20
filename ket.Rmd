@@ -48,12 +48,17 @@ Finally, we apply Toffoli gate to all three qubits:
 
 ## Gates
 
+If you've ever wondered how does the Hadamard matrix look like, here's one:
+
 <div id='gate-h'></div>
 
+If we have three qubits, the operator acting on them is $H \otimes I \otimes I$, that is:
+
+<div id='gate-hii'></div>
 
 ```{js, results='asis', echo=FALSE, message=FALSE}
-const { Circuit } = QuantumTensors;
-const { KetViewer } = BraKetVue;
+const { Circuit, Gates } = QuantumTensors;
+const { KetViewer, MatrixViewer } = BraKetVue;
 
 const circuitHistory = [];
 Circuit.qubits(3)
@@ -78,21 +83,32 @@ function showState(elName, vector) {
   })
 }
 
-//function showGate(elName, operator) {
-//  return new Vue({
-//    el: elName,
-//    template: "<matrix-viewer :operator-raw='operator' :dark-mode='false'/>",
-//    components: {
-//      MatrixViewer,
-//    },
-//    data() {
-//  	  return { operatorRaw: operator }
-//    }
-//  })
-//}
+function showGate(elName, operator) {
+  return new Vue({
+    el: elName,
+    template: "<matrix-viewer :operator-raw='operator' :dark-mode='false'/>",
+    components: {
+      MatrixViewer,
+    },
+    data() {
+  	  return { operator }
+    }
+  })
+}
 
 showState('#ket0', circuitHistory[0].vector)
 showState('#ket1', circuitHistory[1].vector)
 showState('#ket2', circuitHistory[2].vector)
 showState('#ket3', circuitHistory[3].vector)
+
+console.log(Gates.H().outer(Gates.I()).outer(Gates.I()))
+
+showGate('#gate-h', Gates.H())
+showGate('#gate-hii', Gates.H().outer(Gates.I()).outer(Gates.I()))
+```
+
+```{css, echo=FALSE}
+.matrix-viewer {
+  margin: auto;
+}
 ```
