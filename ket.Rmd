@@ -1,7 +1,7 @@
 ---
 title: "Ket vis"
 description: |
-  Just testing.
+  Pure states visualized with BraKetVue
 author:
   - name: Piotr Migdał 
     url: https://p.migdal.pl
@@ -19,10 +19,80 @@ output: distill::distill_article
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-Nothing there yet. To be done later.
-Just testing multiple files.
+```{r, results='asis', echo=FALSE, message=FALSE}
+cat(
+  "<script src='https://cdn.jsdelivr.net/npm/vue@2.6.12'></script>",
+  "<script src='https://unpkg.com/quantum-tensors@0.4.10/dist/quantum-tensors.min.js'></script>",
+  "<script src='https://unpkg.com/bra-ket-vue@0.3.1/dist/bra-ket-vue.min.js'></script>"
+)
+```
+
+## Ket states for qubits
+
+We start with a 3-qubit state:
+
+<div id='ket0'></div>
+
+Now, let's apply Hadamard gate to the first qubit.
+Here is the resulting sta
+
+<div id='ket1'></div>
+
+Now, let's apply CNOT gate to the first two qubits:
+
+<div id='ket2'></div>
+
+Finally, we apply Toffoli gate to all three qubits:
+
+<div id='ket3'></div>
+
+## Gates
+
+<div id='gate-h'></div>
 
 
+```{js, results='asis', echo=FALSE, message=FALSE}
+const { Circuit } = QuantumTensors;
+const { KetViewer } = BraKetVue;
 
+const circuitHistory = [];
+Circuit.qubits(3)
+  .saveTo(circuitHistory)
+  .H(0)
+  .saveTo(circuitHistory)
+  .CNOT(0, 1)
+  .saveTo(circuitHistory)
+  .TOFFOLI(0, 1, 2)
+  .saveTo(circuitHistory);
 
+function showState(elName, vector) {
+  new Vue({
+    el: elName,
+    template: "<ket-viewer :vector='vector' :dark-mode='false'/>",
+    components: {
+      KetViewer,
+    },
+    data() {
+  	  return { vector }
+    }
+  })
+}
 
+//function showGate(elName, operator) {
+//  return new Vue({
+//    el: elName,
+//    template: "<matrix-viewer :operator-raw='operator' :dark-mode='false'/>",
+//    components: {
+//      MatrixViewer,
+//    },
+//    data() {
+//  	  return { operatorRaw: operator }
+//    }
+//  })
+//}
+
+showState('#ket0', circuitHistory[0].vector)
+showState('#ket1', circuitHistory[1].vector)
+showState('#ket2', circuitHistory[2].vector)
+showState('#ket3', circuitHistory[3].vector)
+```
