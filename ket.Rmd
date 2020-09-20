@@ -46,6 +46,32 @@ Finally, we apply Toffoli gate to all three qubits:
 
 <div id='ket3'></div>
 
+## Ket list
+
+Or, if you prefer to have all operations in one place:
+
+<div id='ketlist'></div>
+
+## Code
+
+And if you wonder, JavaScript code to make the computation is as simple as:
+
+```{js, echo=TRUE, eval=FALSE}
+const { Circuit } = QuantumTensors;
+
+const circuitHistory = [];
+Circuit.qubits(3)
+  .saveTo(circuitHistory)
+  .H(0)
+  .saveTo(circuitHistory)
+  .CNOT(0, 1)
+  .saveTo(circuitHistory)
+  .TOFFOLI(0, 1, 2)
+  .saveTo(circuitHistory);
+```
+
+Full documentation is in <https://github.com/Quantum-Game/quantum-tensors/>. For quantum circuits, see: <https://quantum-game.github.io/quantum-tensors/classes/_circuit_.circuit.html>.
+
 ## Gates
 
 If you've ever wondered how does the Hadamard matrix look like, here's one:
@@ -58,7 +84,7 @@ If we have three qubits, the operator acting on them is $H \otimes I \otimes I$,
 
 ```{js, results='asis', echo=FALSE, message=FALSE}
 const { Circuit, Gates } = QuantumTensors;
-const { KetViewer, MatrixViewer } = BraKetVue;
+const { KetViewer, KetListViewer, MatrixViewer } = BraKetVue;
 
 const circuitHistory = [];
 Circuit.qubits(3)
@@ -101,7 +127,23 @@ showState('#ket1', circuitHistory[1].vector)
 showState('#ket2', circuitHistory[2].vector)
 showState('#ket3', circuitHistory[3].vector)
 
-console.log(Gates.H().outer(Gates.I()).outer(Gates.I()))
+new Vue({
+  el: '#ketlist',
+  template: "<ket-list-viewer :steps='stepsQuantumComputing' :dark-mode='false'/>",
+  components: {
+    KetListViewer,
+  },
+  data() {
+	  return {
+      stepsQuantumComputing: [
+        { value: 'initial state', vector: circuitHistory[0].vector },
+        { value: 'Haadamard on 1st qubit', vector: circuitHistory[1].vector },
+        { value: 'CNOT on 1st and 2nd qubit', vector: circuitHistory[2].vector },
+        { value: 'Toffoli gate on all qubits', vector: circuitHistory[3].vector },
+      ],
+	  }
+  }
+})
 
 showGate('#gate-h', Gates.H())
 showGate('#gate-hii', Gates.H().outer(Gates.I()).outer(Gates.I()))
